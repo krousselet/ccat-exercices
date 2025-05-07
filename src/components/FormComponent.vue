@@ -97,7 +97,6 @@ main {
             display: flex;
             width: auto;
             max-width: 10vw;
-            height: 100vh;
 
             ul {
                 display: flex;

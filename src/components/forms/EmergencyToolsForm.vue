@@ -95,7 +95,7 @@
         </div>
   
         <button type="submit">Envoyer</button>
-        <p v-if="score !== null">Votre score : {{ score }} / 3</p>
+        <p v-if="score !== null">Votre score : {{ score }} / {{ questionsCount }}</p>
       </form>
     </div>
   </template>
@@ -112,6 +112,7 @@
         jacketsCo2: "",
         score: null,
         audio: null,
+        questionsCount: 1,
       };
     },
     mounted() {

@@ -38,7 +38,7 @@
           </div>
         </div>
         <button type="submit">Envoyer</button>
-        <p v-if="score !== null">Votre score : {{ score }} / 3</p>
+        <p v-if="score !== null">Votre score : {{ score }} / {{ questionsCount }}</p>
       </form>
     </div>
   </template>
@@ -50,6 +50,7 @@
     name: "SafetyStancesForm",
     data() {
       return {
+        questionsCount: 1,
         stancesCount: "",
         score: null,
         audio: null,
