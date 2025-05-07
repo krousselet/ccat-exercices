@@ -1,7 +1,8 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
+    <router-link to="/">Home</router-link>
     <router-link to="/about">About</router-link>
+    <router-link to="/forms">Questionnaires</router-link>
   </nav>
   <router-view/>
 </template>
@@ -17,6 +18,9 @@
 
 nav {
   padding: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
   a {
     font-weight: bold;
