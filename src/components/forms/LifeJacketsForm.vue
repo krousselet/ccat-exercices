@@ -163,9 +163,55 @@
         </div>
       </div>
 
+      <!-- Question 9 -->
+      <div class="block">
+        <p class="question">Les adultes doivent immédiatement gonfler leur gilet de sauvetage :</p>
+        <div class="together">
+          <div class="group">
+            <input id="jacketsWhenToBlowTrue" type="radio" name="jacketsWhenToBlow" value="true" v-model="jacketsWhenToBlow" />
+            <label for="jacketsWhenToBlowTrue">Au seuil de porte</label>
+          </div>
+          <div class="group">
+            <input id="jacketsWhenToBlowCabine" type="radio" name="jacketsWhenToBlow" value="cabine" v-model="jacketsWhenToBlow" />
+            <label for="jacketsWhenToBlowCabine">Pendant la préparation cabine</label>
+          </div>
+          <div class="group">
+            <input id="jacketsWhenToBlowCrash" type="radio" name="jacketsWhenToBlow" value="crash" v-model="jacketsAutoBlow" />
+            <label for="jacketsAutoMonoCrash">Juste avant le crash</label>
+          </div>
+          <div class="group">
+            <input id="jacketsWhenToBlowWater" type="radio" name="jacketsWhenToBlow" value="water" v-model="jacketsWhenToBlow" />
+            <label for="jacketsWhenToBlowWater">Au contact de l'eau uniquement</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 9 -->
+      <div class="block">
+        <p class="question">De quoi dispose un gilet bébé que les autres n'ont pas ?</p>
+        <div class="together">
+          <div class="group">
+            <input id="jacketsBabyNothing" type="radio" name="jacketsBaby" value="false" v-model="jacketsBaby" />
+            <label for="jacketsBabyNothing">Tous sont standards</label>
+          </div>
+          <div class="group">
+            <input id="jacketsBabyBottle" type="radio" name="jacketsBaby" value="false" v-model="jacketsBaby" />
+            <label for="jacketsBabyBottle">Un biberon</label>
+          </div>
+          <div class="group">
+            <input id="jacketsBabyCo2" type="radio" name="jacketsBaby" value="false" v-model="jacketsBaby" />
+            <label for="jacketsBabyCo2">Une cartouche C02 en plus</label>
+          </div>
+          <div class="group">
+            <input id="jacketsBabyHelper" type="radio" name="jacketsBaby" value="true" v-model="jacketsBaby" />
+            <label for="jacketsBabyHelper">Une cordelette de retenue</label>
+          </div>
+        </div>
+      </div>
+
       <!-- Submit + Result -->
       <button type="submit">Envoyer</button>
-      <p v-if="score !== null" :class="{ 'danger': score < 6 }">
+      <p v-if="score !== null" :class="{'danger': score < 8, 'success': score >= 8}">
         Votre score : {{ score }} / {{ questionsNumber }}
       </p>
     </form>
@@ -187,9 +233,11 @@ export default {
       lightBeacon: "",
       jacketsComposition: "",
       jacketsAutoBlow: "",
+      jacketsWhenToBlow: "",
+      jacketsBaby: "",
       score: null,
       audio: null,
-      questionsNumber: 20,
+      questionsNumber: 10,
     };
   },
   mounted() {
@@ -207,10 +255,12 @@ export default {
       if (this.lightBeacon === "true") score++;
       if (this.jacketsComposition === "true") score++;
       if (this.jacketsAutoBlow === "true") score++;
+      if (this.jacketsWhenToBlow === "true") score++;
+      if (this.jacketsBaby === "true") score++;
 
       this.score = score;
 
-      if (score >= 15) {
+      if (score >= 8) {
         // Play sound
         this.audio.play();
 
@@ -221,8 +271,6 @@ export default {
           origin: { y: 0.6 },
         });
       }
-
-      console.log("Score:", score + "/3");
     },
   },
 };
@@ -231,6 +279,12 @@ export default {
 <style scoped>
 .danger {
   color: red;
+  transition: .5s ease;
+}
+
+.success {
+  color: green;
+  transition: .5s ease;
 }
 
 .wrapper {
