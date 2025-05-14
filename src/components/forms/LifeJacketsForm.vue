@@ -1,221 +1,27 @@
 <template>
-  <div class="wrapper">
-    <form @submit.prevent="submitForm">
-      <!-- Question 1 -->
-      <div class="block">
-        <p class="question">Combien de types de gilets utilise-t-on ?</p>
-        <div class="together">
-          <div class="group" v-for="n in [6, 3, 4, 1]" :key="n">
-            <input
-              :id="'jacketsTypesCount' + n"
-              type="radio"
-              name="jacketsTypesCount"
-              :value="n.toString()"
-              v-model="jacketsTypesCount"
-            />
-            <label :for="'jacketsTypesCount' + n">{{ n }}</label>
-          </div>
+  <form @submit.prevent="submitForm">
+    <div v-for="(question, index) in questions" :key="index" class="block">
+      <p class="question">{{ `${index + 1}) ${question.text}`  }}</p>
+      <div class="together">
+        <div v-for="(option, idx) in question.options" :key="idx" class="group">
+          <input
+            type="radio"
+            :id="option.id"
+            :name="question.model"
+            :value="option.value"
+            v-model="formData[question.model]"
+          />
+          <label :for="option.id">{{ option.label }}</label>
         </div>
       </div>
+    </div>
 
-      <!-- Question 2 -->
-      <div class="block">
-        <p class="question">Il existe un seul type de gilet double chambre réversible</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsTypesTrue" type="radio" name="jacketsTypes" value="true" v-model="jacketsTypes" />
-            <label for="jacketsTypesTrue">Vrai</label>
-          </div>
-          <div class="group">
-            <input id="jacketsTypesFalse" type="radio" name="jacketsTypes" value="false" v-model="jacketsTypes" />
-            <label for="jacketsTypesFalse">Faux</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 3 -->
-      <div class="block">
-        <p class="question">Sur le gilet non-réversible on place la cartouche de CO2 devant</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsCo2True" type="radio" name="jacketsCo2" value="true" v-model="jacketsCo2" />
-            <label for="jacketsCo2True">Vrai</label>
-          </div>
-          <div class="group">
-            <input id="jacketsCo2False" type="radio" name="jacketsCo2" value="false" v-model="jacketsCo2" />
-            <label for="jacketsCo2False">Faux</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 4 -->
-      <div class="block">
-        <p class="question">Dans quel milieu utilise-t-on les gilets de sauvetage ?</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsUseLand" type="radio" name="jacketsUse" value="land" v-model="jacketsUse" />
-            <label for="jacketsUseLand">Terrestre</label>
-          </div>
-          <div class="group">
-            <input id="jacketsUseMaritime" type="radio" name="jacketsUse" value="true" v-model="jacketsUse" />
-            <label for="jacketsUseMaritime">Maritime</label>
-          </div>
-          <div class="group">
-            <input id="jacketsUseAll" type="radio" name="jacketsUse" value="all" v-model="jacketsUse" />
-            <label for="jacketsUseAll">Tout milieu</label>
-          </div>
-          <div class="group">
-            <input id="jacketsUseDay" type="radio" name="jacketsUse" value="day" v-model="jacketsUse" />
-            <label for="jacketsUseDay">Seulement de jour</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 5 -->
-      <div class="block">
-        <p class="question">Un gilet à double chambre présente un seul embout buccal pour les deux chambres</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsBlowFalse1" type="radio" name="jacketsBlow" value="true" v-model="jacketsBlow" />
-            <label for="jacketsBlowFalse1">Faux</label>
-          </div>
-          <div class="group">
-            <input id="jacketsBlowTrue" type="radio" name="jacketsBlow" value="false" v-model="jacketsBlow" />
-            <label for="jacketsBlowTrue">Vrai</label>
-          </div>
-          <div class="group">
-            <input id="jacketsBlowChildren" type="radio" name="jacketsBlow" value="children" v-model="jacketsBlow" />
-            <label for="jacketsBlowChildren">Gilets enfants uniquement</label>
-          </div>
-          <div class="group">
-            <input id="jacketsBlowManex" type="radio" name="jacketsBlow" value="manex" v-model="jacketsBlow" />
-            <label for="jacketsBlowManex">Voir Manex</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 6 -->
-      <div class="block">
-        <p class="question">La balise lumineuse doit avoir une durée de vie de :</p>
-        <div class="together">
-          <div class="group">
-            <input id="lightBeacon6h" type="radio" name="lightBeacon" value="6" v-model="lightBeacon" />
-            <label for="lightBeacon6h">6h</label>
-          </div>
-          <div class="group">
-            <input id="lightBeacon12h" type="radio" name="lightBeacon" value="12" v-model="lightBeacon" />
-            <label for="lightBeacon12h">12h</label>
-          </div>
-          <div class="group">
-            <input id="lightBeaconUnlimited" type="radio" name="lightBeacon" value="unlimited" v-model="lightBeacon" />
-            <label for="lightBeaconUnlimited">Illimitée</label>
-          </div>
-          <div class="group">
-            <input id="lightBeacon24h" type="radio" name="lightBeacon" value="true" v-model="lightBeacon" />
-            <label for="lightBeacon24h">24h</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 7 -->
-      <div class="block">
-        <p class="question">Les gilets à double chambre doivent se composer de :</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsComp1" type="radio" name="jacketsComposition" value="opt1" v-model="jacketsComposition" />
-            <label for="jacketsComp1">2 systèmes de percussion<br />2 embouts buccaux<br />1 cartouche de CO2</label>
-          </div>
-          <div class="group">
-            <input id="jacketsComp2" type="radio" name="jacketsComposition" value="opt2" v-model="jacketsComposition" />
-            <label for="jacketsComp2">1 système de percussion<br />2 embouts buccaux<br />2 cartouches de CO2</label>
-          </div>
-          <div class="group">
-            <input id="jacketsComp3" type="radio" name="jacketsComposition" value="true" v-model="jacketsComposition" />
-            <label for="jacketsComp3">2 systèmes de percussion<br />2 embouts buccaux<br />2 cartouches de CO2</label>
-          </div>
-          <div class="group">
-            <input id="jacketsComp4" type="radio" name="jacketsComposition" value="opt4" v-model="jacketsComposition" />
-            <label for="jacketsComp4">2 systèmes de percussion<br />1 embout buccal<br />2 cartouches de CO2</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 8 -->
-      <div class="block">
-        <p class="question">Tous les gilets ont un système de gonflage automatique</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsAutoBlowTrue" type="radio" name="jacketsAutoBlow" value="true" v-model="jacketsAutoBlow" />
-            <label for="jacketsAutoBlowTrue">Faux</label>
-          </div>
-          <div class="group">
-            <input id="jacketsAutoBlowFalse" type="radio" name="jacketsAutoBlow" value="false" v-model="jacketsAutoBlow" />
-            <label for="jacketsAutoBlowFalse">Vrai</label>
-          </div>
-          <div class="group">
-            <input id="jacketsAutoMono" type="radio" name="jacketsAutoBlow" value="mono" v-model="jacketsAutoBlow" />
-            <label for="jacketsAutoMono">Mono uniquement</label>
-          </div>
-          <div class="group">
-            <input id="jacketsAutoReversible" type="radio" name="jacketsAutoBlow" value="reversible" v-model="jacketsAutoBlow" />
-            <label for="jacketsAutoReversible">Réversibles uniquement</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 9 -->
-      <div class="block">
-        <p class="question">Les adultes doivent immédiatement gonfler leur gilet de sauvetage :</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsWhenToBlowTrue" type="radio" name="jacketsWhenToBlow" value="true" v-model="jacketsWhenToBlow" />
-            <label for="jacketsWhenToBlowTrue">Au seuil de porte</label>
-          </div>
-          <div class="group">
-            <input id="jacketsWhenToBlowCabine" type="radio" name="jacketsWhenToBlow" value="cabine" v-model="jacketsWhenToBlow" />
-            <label for="jacketsWhenToBlowCabine">Pendant la préparation cabine</label>
-          </div>
-          <div class="group">
-            <input id="jacketsWhenToBlowCrash" type="radio" name="jacketsWhenToBlow" value="crash" v-model="jacketsAutoBlow" />
-            <label for="jacketsAutoMonoCrash">Juste avant le crash</label>
-          </div>
-          <div class="group">
-            <input id="jacketsWhenToBlowWater" type="radio" name="jacketsWhenToBlow" value="water" v-model="jacketsWhenToBlow" />
-            <label for="jacketsWhenToBlowWater">Au contact de l'eau uniquement</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 9 -->
-      <div class="block">
-        <p class="question">De quoi dispose un gilet bébé que les autres n'ont pas ?</p>
-        <div class="together">
-          <div class="group">
-            <input id="jacketsBabyNothing" type="radio" name="jacketsBaby" value="false" v-model="jacketsBaby" />
-            <label for="jacketsBabyNothing">Tous sont standards</label>
-          </div>
-          <div class="group">
-            <input id="jacketsBabyBottle" type="radio" name="jacketsBaby" value="false" v-model="jacketsBaby" />
-            <label for="jacketsBabyBottle">Un biberon</label>
-          </div>
-          <div class="group">
-            <input id="jacketsBabyCo2" type="radio" name="jacketsBaby" value="false" v-model="jacketsBaby" />
-            <label for="jacketsBabyCo2">Une cartouche C02 en plus</label>
-          </div>
-          <div class="group">
-            <input id="jacketsBabyHelper" type="radio" name="jacketsBaby" value="true" v-model="jacketsBaby" />
-            <label for="jacketsBabyHelper">Une cordelette de retenue</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Submit + Result -->
-      <button type="submit">Envoyer</button>
-      <p v-if="score !== null" :class="{'danger': score < 8, 'success': score >= 8}">
-        Votre score : {{ score }} / {{ questionsNumber }}
-      </p>
-    </form>
-  </div>
+    <!-- Submit and Score -->
+    <button type="submit">Envoyer</button>
+    <p v-if="score !== null" :class="{ danger: score < 7, success: score >= 8 }">
+      Votre score : {{ score }} / {{ questions.length }}
+    </p>
+  </form>
 </template>
 
 <script>
@@ -225,19 +31,243 @@ export default {
   name: "LifeJacketsForm",
   data() {
     return {
-      jacketsTypesCount: "",
-      jacketsTypes: "",
-      jacketsCo2: "",
-      jacketsUse: "",
-      jacketsBlow: "",
-      lightBeacon: "",
-      jacketsComposition: "",
-      jacketsAutoBlow: "",
-      jacketsWhenToBlow: "",
-      jacketsBaby: "",
+      formData: {
+        emergencyExitTypes: "",
+        howToJump: "",
+        paxPosition: "",
+        paxRole: "",
+        convertibleSlidesBasics: "",
+      },
       score: null,
       audio: null,
-      questionsNumber: 10,
+      questions: [
+        {
+          text: "Combien de types de gilets utilise-t-on ?",
+          model: "jacketsTypesCount",
+          correct: "true",
+          options: [
+            { id: "jacketsTypesCount6", value: "false", label: "6" },
+            { id: "jacketsTypesCount3", value: "false", label: "3" },
+            { id: "jacketsTypesCount1", value: "false", label: "1" },
+            { id: "jacketsTypesCountTrue", value: "true", label: "4" },
+          ],
+        },
+        {
+          text: "Il existe un seul type de gilet double chambre réversible",
+          model: "jacketsTypes",
+          correct: "true",
+          options: [
+            {
+              id: "jacketsTypesFalse",
+              value: "false",
+              label: "Vrai",
+            },
+            {
+              id: "jacketsTypesTrue",
+              value: "true",
+              label: "Faux",
+            },
+          ],
+        },
+        {
+          text: "Sur le gilet non-réversible on place la cartouche de CO2 devant",
+          model: "jacketsCo2",
+          correct: "true",
+          options: [
+            { id: "jacketsCo2False", value: "false", label: "Vrai" },
+            { id: "jacketsCo2True", value: "true", label: "Faux" },
+          ],
+        },
+        {
+          text: "Dans quel milieu utilise-t-on les gilets de sauvetage ?",
+          model: "jacketsUse",
+          correct: "true",
+          options: [
+            {
+              id: "jacketsUseTerrestre",
+              value: "false",
+              label: "Terrestre",
+            },
+            {
+              id: "jacketsUseMaritime",
+              value: "true",
+              label: "Maritime",
+            },
+            {
+              id: "jacketsUseAll",
+              value: "false",
+              label: "Tout milieu",
+            },
+            {
+              id: "jacketsUseDay",
+              value: "false",
+              label: "Seulement de jour",
+            },
+          ],
+        },
+        {
+          text: "Un gilet à double chambre présente un seul embout buccal pour les deux chambres",
+          model: "jacketsBlow",
+          correct: "true",
+          options: [
+            {
+              id: "jacketsBlowTrue",
+              value: "true",
+              label: "Faux",
+            },
+            {
+              id: "jacketsBlowFalse",
+              value: "false",
+              label: "Vrai",
+            },
+            {
+              id: "jacketsBlowChildrenOnly",
+              value: "false",
+              label: "Gilets enfants uniquement",
+            },
+            {
+              id: "jacketsBlowManex",
+              value: "false",
+              label: "Voir manex",
+            },
+          ],
+        },
+      {
+          text: "La balise lumineuse doit avoir une durée de vie de :",
+          model: "lightBeacon",
+          correct: "true",
+          options: [
+            {
+              id: "lightBeacon",
+              value: "false",
+              label: "6h",
+            },
+            {
+              id: "lightBeaconInfinite",
+              value: "false",
+              label: "Illimitée",
+            },
+            {
+              id: "lightBeaconTrue",
+              value: "true",
+              label: "24h",
+            },
+            {
+              id: "lightBeaconTwelveHour",
+              value: "false",
+              label: "12h",
+            },
+          ],
+        },
+      {
+          text: "Les gilets à double chambre doivent se composer de :",
+          model: "jacketsComposition",
+          correct: "true",
+          options: [
+            {
+              id: "jacketsCompositionFalse",
+              value: "false",
+              label: "2 systèmes de percussion, 2 embouts buccaux, 1 cartouche de CO2",
+            },
+            {
+              id: "jacketsCompositionTrue",
+              value: "true",
+              label: "2 systèmes de percussion, 2 embouts buccaux, 2 cartouches de CO2",
+            },
+            {
+              id: "jacketsCompositionFalseOne",
+              value: "false",
+              label: "1 système de percussion, 2 embouts buccaux, 2 cartouches de CO2",
+            },
+            {
+              id: "jacketsCompositionFalseTwo",
+              value: "false",
+              label: "2 systèmes de percussion, 1 embout buccal, 2 cartouches de CO2",
+            },
+          ],
+        },
+      {
+          text: "Tous les gilets ont un système de gonflage automatique",
+          model: "jacketsAutoBlow",
+          correct: "true",
+          options: [
+            {
+              id: "jacketsAutoBlowFalse",
+              value: "false",
+              label: "Vrai",
+            },
+            {
+              id: "jacketsAutoBlowMono",
+              value: "false",
+              label: "Monos uniquement",
+            },
+            {
+              id: "jacketsAutoBlowConvertible",
+              value: "false",
+              label: "Réversibles uniquement",
+            },
+            {
+              id: "jacketsAutoBlowTrue",
+              value: "true",
+              label: "Faux",
+            },
+          ],
+        },
+      {
+          text: "Les adultes doivent immédiatement gonfler leur gilet de sauvetage :",
+          model: "jacketsWhenToBlow",
+          correct: "true",
+          options: [
+            {
+              id: "jacketsWhenToBlowTrue",
+              value: "true",
+              label: "Au seuil de la porte",
+            },
+            {
+              id: "jacketsWhenToBlowCabine",
+              value: "false",
+              label: "Pendant la préparation cabine",
+            },
+            {
+              id: "jacketsWhenToBlowCrash",
+              value: "false",
+              label: "Juste avant le crash",
+            },
+            {
+              id: "jacketsWhenToBlowWater",
+              value: "false",
+              label: "Au contact de l'avion avec l'eau",
+            },
+          ],
+        },
+      {
+          text: "De quoi dispose un gilet bébé que les autres n'ont pas ?",
+          model: "jacketsBaby",
+          correct: "true",
+          options: [
+            {
+              id: "jacketsBabyStandard",
+              value: "false",
+              label: "Tous sont standards",
+            },
+            {
+              id: "jacketsBabyStandardBottle",
+              value: "false",
+              label: "Un biberon",
+            },
+            {
+              id: "jacketsBabyStandardCo2",
+              value: "false",
+              label: "Une cartouche de Co2 supplémentaire",
+            },
+            {
+              id: "jacketsBabyStandardTrue",
+              value: "true",
+              label: "Une cordelette de retenue",
+            },
+          ],
+        },
+      ],
     };
   },
   mounted() {
@@ -247,24 +277,16 @@ export default {
     submitForm() {
       let score = 0;
 
-      if (this.jacketsTypesCount === "3") score++;
-      if (this.jacketsTypes === "false") score++;
-      if (this.jacketsCo2 === "false") score++;
-      if (this.jacketsUse === "true") score++;
-      if (this.jacketsBlow === "true") score++;
-      if (this.lightBeacon === "true") score++;
-      if (this.jacketsComposition === "true") score++;
-      if (this.jacketsAutoBlow === "true") score++;
-      if (this.jacketsWhenToBlow === "true") score++;
-      if (this.jacketsBaby === "true") score++;
+      for (const question of this.questions) {
+        if (this.formData[question.model] === question.correct) {
+          score++;
+        }
+      }
 
       this.score = score;
 
       if (score >= 8) {
-        // Play sound
         this.audio.play();
-
-        // Launch confetti
         confetti({
           particleCount: 100,
           spread: 70,
