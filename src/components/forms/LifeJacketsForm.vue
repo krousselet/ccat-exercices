@@ -2,7 +2,7 @@
   <form @submit.prevent="submitForm">
     <div v-for="(question, index) in questions" :key="index" class="block moveFromRight appear">
       <p class="question">{{ `${index + 1}) ${question.text}`  }}</p>
-      <div class="together">
+          <div class="together" :class="{ danger: submitted && formData[question.model] !== question.correct }">
         <div v-for="(option, idx) in question.options" :key="idx" class="group">
           <input
             type="radio"
@@ -40,6 +40,7 @@ export default {
       },
       score: null,
       audio: null,
+      submitted: false,
       questions: [
         {
           text: "Combien de types de gilets utilise-t-on ?",
@@ -276,7 +277,7 @@ export default {
   methods: {
     submitForm() {
       let score = 0;
-
+      this.submitted = true;
       for (const question of this.questions) {
         if (this.formData[question.model] === question.correct) {
           score++;
