@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div v-for="(question, index) in questions" :key="index" class="block">
+    <div v-for="(question, index) in questions" :key="index" class="block moveFromRight appear">
       <p class="question">{{ `${index + 1}) ${question.text}`  }}</p>
       <div class="together">
         <div v-for="(option, idx) in question.options" :key="idx" class="group">
@@ -37,6 +37,8 @@ export default {
         raftsStepsEmbark: "",
         raftsAlternativeMeans: "",
         raftsAlwaysOnboard: "",
+        raftsComposition: "",
+        raftsVenturi: "",
       },
       score: null,
       audio: null,
@@ -141,6 +143,87 @@ export default {
               id: "raftsAlwaysOnboardPlace",
               value: "false",
               label: "Non, cela dépend du nombre de passagers emportés",
+            },
+          ],
+        },
+        {
+          text: "Un canot de sauvetage est composé :",
+          model: "raftsComposition",
+          correct: "true",
+          options: [
+            {
+              id: "raftsCompositionTrue",
+              value: "true",
+              label: "2 saisines, deux tores superposés, un toit, une balise lumineuse",
+            },
+            {
+              id: "raftsCompositionFalse",
+              value: "false",
+              label: "1 saisine, 1 tore, une rigole de récupération, des stabilisateurs",
+            },
+            {
+              id: "raftsCompositionFalseOne",
+              value: "false",
+              label: "1 saisine, deux tores superposés, une échelle, une balise lumineuse",
+            },
+            {
+              id: "raftsCompositionFalseTwo",
+              value: "false",
+              label: "Une voile, 2 tores superposés, 2 saisines, une échelle",
+            },
+          ],
+        },
+         {
+          text: "Les valves sur les canots sont :",
+          model: "raftsVenturi",
+          correct: "true",
+          options: [
+            {
+              id: "raftsPenturi",
+              value: "false",
+              label: "Les valves penturi",
+            },
+            {
+              id: "raftsCentury",
+              value: "false",
+              label: "Les valves century",
+            },
+            {
+              id: "raftsVenturi",
+              value: "true",
+              label: "Les valves venturi",
+            },
+            {
+              id: "raftsBenturi",
+              value: "false",
+              label: "Les valves benturi",
+            },
+          ],
+        },
+        {
+          text: "Ces valves permettent de :",
+          model: "raftsVenturiGoal",
+          correct: "true",
+          options: [
+            {
+              id: "raftsVenturiGoalAnchor",
+              value: "false",
+              label: "Maintenir les canots fixés à l'avion pour éviter la dérive",
+            },
+            {
+              id: "raftsVenturiWater",
+              value: "false",
+              label: "Stocker de l'eau dans les tores plutôt que de l'air",
+            },
+            {
+              id: "raftsVenturiWeight",
+              value: "false",
+              label: "Prévenir l'explosion des tores en cas de surnombre sur les canots",
+            },
+            {
+              id: "raftsVenturiTrue",
+              value: "true",
+              label: "Complètent le gonflage de la cartouche Co2",
             },
           ],
         },

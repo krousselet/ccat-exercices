@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div v-for="(question, index) in questions" :key="index" class="block">
+    <div v-for="(question, index) in questions" :key="index" class="block moveFromRight appear">
       <p class="question">{{ `${index + 1}) ${question.text}`  }}</p>
       <div class="together">
         <div v-for="(option, idx) in question.options" :key="idx" class="group">
@@ -319,6 +319,7 @@ export default {
 form {
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .block {
@@ -327,6 +328,7 @@ form {
   gap: 25px;
   margin: 25px auto;
   height: 100%;
+  position: relative;
 }
 
 .together {

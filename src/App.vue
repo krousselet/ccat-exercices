@@ -14,6 +14,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  // background:  linear-gradient(#103A65, #548BA3);
 }
 
 nav {
@@ -48,6 +49,40 @@ button {
   }
 }
 
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px auto;
+  height: 100%;
+  position: relative;
+}
+
+.together {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 25px;
+  height: 100%;
+}
+
+.question {
+  font-weight: bold;
+}
+
 // ROLL TRANSITION
 .die-link {
   display: inline-block;
@@ -64,6 +99,40 @@ button {
     background: #002157;
     color: white;
     transform: rotateX(360deg);
+  }
+}
+
+.appear {
+  opacity: 1;
+  animation: appear .3s .2s ease-in-out forwards;
+}
+
+.moveFromLeft {
+  left: -25vw;
+  animation: moveFromLeft .3s .2s ease-in-out forwards;
+}
+
+.moveFromRight {
+  right: -50vw;
+  animation: moveFromRight .3s .2s ease-in-out forwards;
+}
+
+//KEYFRAMES
+@keyframes appear {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes moveFromLeft {
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes moveFromRight {
+  100% {
+    right: 0;
   }
 }
 

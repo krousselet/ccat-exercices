@@ -6,24 +6,24 @@
         <div class="wrapper">
             <nav class="form-nav">
                 <ul>
-                    <li :class="{ active: activeForm === 'lifeJackets' }" @click="activeForm = 'lifeJackets'">
+                    <li class="moveFromLeft" :class="{ active: activeForm === 'lifeJackets' }" @click="activeForm = 'lifeJackets'">
                         Gilets de sauvetage
                     </li>
-                    <li :class="{ active: activeForm === 'safetyStances' }" @click="activeForm = 'safetyStances'">
+                    <li class="moveFromLeft" :class="{ active: activeForm === 'safetyStances' }" @click="activeForm = 'safetyStances'">
                         Positions de sécurité</li>
-                    <li :class="{ active: activeForm === 'emergencySlides' }" @click="activeForm = 'emergencySlides'">
+                    <li class="moveFromLeft" :class="{ active: activeForm === 'emergencySlides' }" @click="activeForm = 'emergencySlides'">
                         Toboggans</li>
-                    <li :class="{ active: activeForm === 'emergencyRafts' }" @click="activeForm = 'emergencyRafts'">
+                    <li class="moveFromLeft" :class="{ active: activeForm === 'emergencyRafts' }" @click="activeForm = 'emergencyRafts'">
                         Canots de sauvetage
                     </li>
-                    <li :class="{ active: activeForm === 'evacuation' }" @click="activeForm = 'evacuation'">
+                    <li class="moveFromLeft" :class="{ active: activeForm === 'evacuation' }" @click="activeForm = 'evacuation'">
                         Evacuations
                     </li>
-                    <li :class="{ active: activeForm === 'emergencyBeacons' }" @click="activeForm = 'emergencyBeacons'">
+                    <li class="moveFromLeft" :class="{ active: activeForm === 'emergencyBeacons' }" @click="activeForm = 'emergencyBeacons'">
                         Balises de détresses</li>
-                    <li  :class="{ active: activeForm === 'emergencyTools' }" @click="activeForm = 'emergencyTools'">
+                    <li class="moveFromLeft"  :class="{ active: activeForm === 'emergencyTools' }" @click="activeForm = 'emergencyTools'">
                         Moyens signalisation</li>
-                    <li :class="{ active: activeForm === 'breathingHood' }" @click="activeForm = 'breathingHood'">
+                    <li class="moveFromLeft" :class="{ active: activeForm === 'breathingHood' }" @click="activeForm = 'breathingHood'">
                         Cagoule de protection respiratoire</li>
                     <!-- Add more items later -->
                 </ul>
@@ -84,7 +84,7 @@ main {
     flex-direction: column;
 
     .title-container {
-        border: 1px solid black;
+        // border: 1px solid black;
     }
 
     .wrapper {
@@ -96,7 +96,8 @@ main {
         .form-nav {
             display: flex;
             width: auto;
-            max-width: 10vw;
+            max-width: 13vw;
+            
 
             ul {
                 display: flex;
@@ -105,13 +106,21 @@ main {
                 gap: 1rem;
                 padding: 0;
                 width: auto;
-                max-width: 90%;
+                max-width: 100%;
                 height: 100%;
+                opacity: 0;
+                animation: appear .3s .2s ease-in-out forwards;
+                position: relative;
+                overflow-x: hidden;
+                
 
                 li {
                     cursor: pointer;
-                    padding: 0.5rem 1rem;
+                    // padding: 0.5rem 1rem;
                     border-bottom: 2px solid transparent;
+                    position: relative;
+                    width: inherit;
+                    
                     &.active {
                         font-weight: bold;
                         // color: blue;
