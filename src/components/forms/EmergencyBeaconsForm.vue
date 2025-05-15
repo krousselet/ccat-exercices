@@ -18,7 +18,7 @@
 
     <!-- Submit and Score -->
     <button type="submit">Envoyer</button>
-    <p v-if="score !== null" :class="{ danger: score < 3, success: score >= this.questions.length - 2 }">
+    <p v-if="score !== null" :class="{ danger: score < 11, success: score >= this.questions.length - 3 }">
       Votre score : {{ score }} / {{ questions.length }}
     </p>
   </form>
@@ -43,6 +43,9 @@ export default {
         emergencyBeaconsPartsName: "",
         emergencyBeaconsWaterSteps: "",
         emergencyBeaconsWaterStepsDetails: "",
+        emergencyBeaconsGroundPartsName: "",
+        emergencyBeaconsGroundSteps: "",
+        emergencyBeaconsGroundStepsDetails: "",
       },
       score: null,
       audio: null,
@@ -52,10 +55,10 @@ export default {
           model: "emergencyBeaconsName",
           correct: "true",
           options: [
-            { id: "emergencyBeaconsNameFalseOne", value: "false", label: "AET 406S" },
-            { id: "emergencyBeaconsNameFalseTwo", value: "false", label: "EDT 405E" },
+            { id: "emergencyBeaconsNameFalse", value: "false", label: "AET 406S" },
+            { id: "emergencyBeaconsNameFalseOne", value: "false", label: "EDT 405E" },
             { id: "emergencyBeaconsNameTrue", value: "true", label: "ADT 406S" },
-            { id: "emergencyBeaconsNameFalseThree", value: "false", label: "MDT 406Y" },
+            { id: "emergencyBeaconsNameFalseTwo", value: "false", label: "MDT 406Y" },
           ],
         },
         {
@@ -63,10 +66,10 @@ export default {
           model: "emergencyBeaconsFrequencyCount",
           correct: "true",
           options: [
-            { id: "emergencyBeaconsFrequencyCountFalseOne", value: "false", label: "Sur deux fréquences, la troisième requiert une manipulation" },
+            { id: "emergencyBeaconsFrequencyCountFalse", value: "false", label: "Sur deux fréquences, la troisième requiert une manipulation" },
             { id: "emergencyBeaconsFrequencyCountTrue", value: "true", label: "Sur trois fréquences simultanément" },
-            { id: "emergencyBeaconsFrequencyCountFalseTwo", value: "false", label: "Sur quatre fréquences simultanément" },
-            { id: "emergencyBeaconsFrequencyCountFalseThree", value: "false", label: "Sur deux fréquences simultanément" },
+            { id: "emergencyBeaconsFrequencyCountFalseOne", value: "false", label: "Sur quatre fréquences simultanément" },
+            { id: "emergencyBeaconsFrequencyCountFalseTwo", value: "false", label: "Sur deux fréquences simultanément" },
           ],
         },
         {
@@ -74,10 +77,10 @@ export default {
           model: "emergencyBeaconsFrequencyDetails",
           correct: "true",
           options: [
-            { id: "emergencyBeaconsFrequencyDetailsFalseOne", value: "false", label: "406MHz, 125MHz, 250MHz" },
+            { id: "emergencyBeaconsFrequencyDetailsFalse", value: "false", label: "406MHz, 125MHz, 250MHz" },
             { id: "emergencyBeaconsFrequencyDetailsTrue", value: "true", label: "406MHz, 121,5MHz, 243MHz" },
-            { id: "emergencyBeaconsFrequencyDetailsFalseTwo", value: "false", label: "408MHz, 121,5MHz, 243MHz" },
-            { id: "emergencyBeaconsFrequencyDetailsFalseThree", value: "false", label: "408MHz, 111,5MHz, 223MHz" },
+            { id: "emergencyBeaconsFrequencyDetailsFalseOne", value: "false", label: "408MHz, 121,5MHz, 243MHz" },
+            { id: "emergencyBeaconsFrequencyDetailsFalseTwo", value: "false", label: "408MHz, 111,5MHz, 223MHz" },
           ],
         },
         {
@@ -168,8 +171,8 @@ export default {
             },
             {
               id: "emergencyBeaconsWaterSteps1",
-              value: "true",
-              label: "Une seule étape",
+              value: "false",
+              label: "1 seule étape",
             },
             {
               id: "emergencyBeaconsWaterSteps4",
@@ -194,7 +197,7 @@ export default {
               label: "pré-test, attente 45s, émission",
             },
             {
-              id: "emergencyBeaconsWaterStepsDetailsFalseOne",
+              id: "emergencyBeaconsWaterStepsDetailsFalseTwo",
               value: "false",
               label: "Préparation balise, attente 30s, pré-test, émission",
             },
@@ -243,7 +246,7 @@ export default {
               label: "3 étapes",
             },
             {
-              id: "emergencyBeaconsGroundSteps",
+              id: "emergencyBeaconsGroundSteps2",
               value: "false",
               label: "2 étapes",
             },
@@ -253,7 +256,7 @@ export default {
               label: "Une seule étape",
             },
             {
-              id: "emergencyBeaconsWaterSteps4",
+              id: "emergencyBeaconsGroundSteps4",
               value: "true",
               label: "4 étapes",
             },
@@ -261,55 +264,55 @@ export default {
         },
         {
           text: "Pour une utilisation terrestre, l'ordre de ces étapes est :",
-          model: "emergencyBeaconsWaterStepsDetailsGround",
+          model: "emergencyBeaconsGroundStepsDetails",
           correct: "true",
           options: [
             {
-              id: "emergencyBeaconsWaterStepsDetailsGroundFalse",
-              value: "false",
-              label: "",
+              id: "emergencyBeaconsGroundStepsDetailsTrue",
+              value: "true",
+              label: "Préparation balise, auto-test, attente 30s, émission",
             },
             {
-              id: "emergencyBeaconsWaterStepsDetailsGroundFalseOne",
+              id: "emergencyBeaconsGroundStepsDetailsFalse",
               value: "false",
-              label: "",
+              label: "Préparation balise, auto-test, attente 45s, émission",
             },
             {
-              id: "emergencyBeaconsWaterStepsDetailsGroundFalseOne",
+              id: "emergencyBeaconsGroundStepsDetailsFalseOne",
               value: "false",
-              label: "",
+              label: "Préparation balise, auto-test, émission",
             },
             {
-              id: "emergencyBeaconsWaterStepsDetailsGroundTrue",
+              id: "emergencyBeaconsGroundStepsDetailsFalseTwo",
               value: "false",
-              label: "",
+              label: "Préparation balise, émission, auto-test ",
             },
           ],
         },
         {
           text: "Pour une utilisation terrestre, ces étapes sont :",
-          model: "emergencyBeaconsWaterStepsOrderGround",
+          model: "emergencyBeaconsGroundStepsOrder",
           correct: "true",
           options: [
             {
-              id: "emergencyBeaconsWaterStepsOrderGroundFalse",
+              id: "emergencyBeaconsGroundStepsOrderFalse",
               value: "false",
-              label: "",
+              label: "Choisir un bon endroit, mettre la balise à l'horizontal, visser antenne ambase, position ON",
             },
             {
-              id: "emergencyBeaconsWaterStepsOrderGroundFalseOne",
+              id: "emergencyBeaconsGroundStepsOrderFalseOne",
               value: "true",
-              label: "",
+              label: "Choisir un bon endroit, mettre la balise à la verticale, visser antenne ambase, position ARMED",
             },
             {
-              id: "emergencyBeaconsWaterStepsOrderGroundTrue",
-              value: "false",
-              label: "",
+              id: "emergencyBeaconsGroundStepsOrderTrue",
+              value: "true",
+              label: "Choisir un bon endroit, mettre la balise à la verticale, visser antenne ambase, position ON",
             },
             {
-              id: "emergencyBeaconsWaterStepsOrderGroundFalseTwo",
+              id: "emergencyBeaconsGroundStepsOrderFalseTwo",
               value: "false",
-              label: "",
+              label: "Mettre la balise à la verticale, visser antenne ambase, immerger la balise, position ON",
             },
           ],
         },
@@ -331,7 +334,7 @@ export default {
 
       this.score = score;
 
-      if (score >= this.questions.length - 2) {
+      if (score >= this.questions.length - 3) {
         this.audio.play();
         confetti({
           particleCount: 100,

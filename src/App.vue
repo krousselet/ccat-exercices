@@ -83,6 +83,14 @@ form {
   font-weight: bold;
 }
 
+.danger {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
 // ROLL TRANSITION
 .die-link {
   display: inline-block;
