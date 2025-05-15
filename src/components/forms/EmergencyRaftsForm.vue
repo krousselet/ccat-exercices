@@ -51,7 +51,7 @@ export default {
             { id: "raftsPartsCountTrue", value: "true", label: "7 parties" },
             { id: "raftsPartsCountFalse", value: "false", label: "5 parties" },
             { id: "raftsPartsCountFalseOne", value: "false", label: "8 parties" },
-            { id: "raftsPartsCountFalseTrue", value: "false", label: "6 parties" },
+            { id: "raftsPartsCountFalseTwo", value: "false", label: "6 parties" },
           ],
         },
         {
@@ -75,7 +75,7 @@ export default {
               label: "En deux temps, avec une cartouche de Co2 puis par un système d'aspiration",
             },
             {
-              id: "raftsHowToInflateTrue",
+              id: "raftsHowToInflateHands",
               value: "false",
               label: "Le canot se gongle à l'aide d'une pompe à main",
             },

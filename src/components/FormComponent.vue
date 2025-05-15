@@ -96,7 +96,7 @@ main {
         .form-nav {
             display: flex;
             width: auto;
-            max-width: 13vw;
+            max-width: 28vw;
             
 
             ul {

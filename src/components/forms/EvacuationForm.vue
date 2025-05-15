@@ -28,17 +28,17 @@
 import confetti from "canvas-confetti";
 
 export default {
-  name: "EmergencyRaftsForm",
+  name: "EvacuationForm",
   data() {
     return {
       formData: {
-        raftsPartsCount: "",
-        raftsHowToInflate: "",
-        raftsStepsEmbark: "",
-        raftsAlternativeMeans: "",
-        raftsAlwaysOnboard: "",
-        raftsComposition: "",
-        raftsVenturi: "",
+        evacuationPartsCount: "",
+        evacuationHowToInflate: "",
+        evacuationStepsEmbark: "",
+        evacuationAlternativeMeans: "",
+        evacuationAlwaysOnboard: "",
+        evacuationComposition: "",
+        evacuationVenturi: "",
       },
       score: null,
       audio: null,
